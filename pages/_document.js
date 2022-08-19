@@ -5,25 +5,9 @@ class MyDocument extends Document {
 		return (
 			<Html>
 				<Head>
-					{/* FONTS */}
-					{/* <script
-						async
-						defer
-						src="https://beampipe.io/js/tracker.js"
-						data-beampipe-domain="drag-me.vercel.app"
-					/> */}
-					<script
-						async
-						defer
-						data-website-id="b11e21d8-1ceb-46c2-976d-1ae170412078"
-						src="https://umami-fork.vercel.app/umami.js"
-					></script>
+					
 
-
-					<link
-						href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap"
-						rel="stylesheet"
-					/>
+					<link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,300,400&display=swap" rel="stylesheet" /> 
 					{/* FAVICONS */}
 					<link
 						rel="apple-touch-icon"
@@ -50,11 +34,6 @@ class MyDocument extends Document {
 					<meta name="msapplication-TileColor" content="#FF0066" />
 					<meta name="theme-color" content="#FF0066" />
 				</Head>
-				<head
-					dangerouslySetInnerHTML={{
-						__html: "<!--  Well hello there you nosey little shit  -->",
-					}}
-				></head>
 				<body>
 					<Main />
 					<NextScript />
