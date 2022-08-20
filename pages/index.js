@@ -1,40 +1,82 @@
-import Head from "next/head";
-import Image from "next/image";
 import Style from "../styles/Home.module.scss";
+import Link from "next/link";
+import { useState } from "react";
+
+import { challengeData } from "../challengeData";
+import Navbar from "../components/navbar/Navbar";
+import { useRouter } from "next/router";
+
+
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../firebase";
+
 
 export default function Home() {
+	// const [challenges, setChallenges] = useState(challengesData);
+	const router = useRouter()
+
+	const [user, loading, error] = useAuthState(auth);
+
+
+	const handleMake = () => {
+		if(!user){
+			router.push("/login")
+		}else{
+			router.push("/make")
+		}
+	}
+
 	return (
 		<div className={Style.App}>
-			<nav>
-				<div className={Style.navContent}>
-					<div className={Style.logo}>
-						<h1>Fitmate</h1>
-					</div>
-					<div className={Style["nav-right"]}>
-						{/* <button>Sign up</button>
-						<button>Log in</button> */}
-						{/* <button>Create a challenge</button> */}
-						<div className={Style.profile}></div>
-					</div>
-					{/* <div className={Style.profile}>Manish</div> */}
-				</div>
-			</nav>
+			<Navbar />
 			<div className={Style.container}>
 				<div className={Style["challenge-container"]}>
 					<div className={Style["challenge-heading"]}>
-						<h3>Challenges</h3>
+						<h3>Featured Challenges</h3>
 						<div>
-							<button>View All</button>
+							<Link href="/challenges">
+								<button>
+									<span>View All</span>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										width="16"
+										height="16"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="1.5"
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										class="ai ai-ArrowRight"
+									>
+										<path d="M4 12h16" />
+										<path d="M13 5l7 7-7 7" />
+									</svg>
+								</button>
+							</Link>
 						</div>
 					</div>
 
 					<div className={Style["challenges"]}>
-						<div className={Style.challenge}></div>
-						<div className={Style.challenge}></div>
-						<div className={Style.challenge}></div>
-						<div className={Style.challenge}></div>
-						<div className={Style.challenge}></div>
-						<div className={Style.challenge}></div>
+						{challengeData.map((c) => (
+							<>
+								{c.featured && (
+									<div className={Style.challenge}>
+										<h3>{c.title}</h3>
+										{/* <p>{challenge.description}</p> */}
+										<Link href={`/challenges/${c.id}`}>more info</Link>
+									</div>
+								)}
+							</>
+						))}
+
+					</div>
+				</div>
+				<div className={Style["make-challenges"]}>
+					{/* <div></div> */}
+					<div className={Style.make}>
+						<h3>make you own challenge</h3>
+						<button onClick={handleMake}>create</button>
 					</div>
 				</div>
 			</div>

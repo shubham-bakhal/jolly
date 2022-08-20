@@ -14,8 +14,10 @@ body {
 	/* line-height: 1.5; */
 	/* font-size: 62.5%; */
 	-webkit-font-smoothing: antialiased;
-	font-family: 'Satoshi', sans-serif;
-	background-color: #f2f2f2;
+	font-family: "Satoshi", sans-serif;
+	background-color: #f0f2f5;
+
+	--ac-1: #a6ff00;
 }
 img,
 picture,
@@ -45,7 +47,6 @@ h6 {
 	isolation: isolate;
 }
 
-
-button{
-	padding: .6rem;
+button {
+	padding: 0.6rem;
 }
