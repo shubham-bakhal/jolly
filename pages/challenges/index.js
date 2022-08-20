@@ -2,11 +2,23 @@ import Style from "../../styles/challenges.module.scss";
 import { challengeData } from "../../challengeData";
 import Navbar from "../../components/navbar/Navbar";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import Modal from "../../components/Modal/Modal";
 
 const Challenges = () => {
+	const [showModal, setShowModal] = useState(false);
+
+
+	useEffect(() => {
+
+	}, [])
+
 	return (
 		<>
-			<Navbar />
+			<Navbar setShowModal={setShowModal} />
+			{/* {showModal && ( */}
+				<Modal onClose={() => setShowModal(false)} show={showModal} />
+			{/* )} */}
 			<div className={Style.container}>
 				<div className={Style["challenges"]}>
 					{challengeData.map((c) => (

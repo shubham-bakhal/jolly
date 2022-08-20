@@ -6,54 +6,71 @@ import { challengeData } from "../challengeData";
 import Navbar from "../components/navbar/Navbar";
 import { useRouter } from "next/router";
 
-
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase";
-
+import Modal from "../components/Modal/Modal";
 
 export default function Home() {
 	// const [challenges, setChallenges] = useState(challengesData);
-	const router = useRouter()
+	const router = useRouter();
 
 	const [user, loading, error] = useAuthState(auth);
 
+	const [showModal, setShowModal] = useState(false);
+	const [login, setLogin] = useState(false);
 
 	const handleMake = () => {
-		if(!user){
-			router.push("/login")
-		}else{
-			router.push("/make")
+		if (!user) {
+			setShowModal(true);
+		} else {
+			router.push(`/challenge/${challenge}/workout`);
 		}
-	}
+	};
+
+	const handleViewAll = () => {
+		if (!user) {
+			setShowModal(true);
+		} else {
+			router.push(`/challenges`);
+		}
+	};
 
 	return (
 		<div className={Style.App}>
-			<Navbar />
+			<Navbar setShowModal={setShowModal} setLogin={setLogin} />
+			<Modal
+				onClose={() => setShowModal(false)}
+				show={showModal}
+				login={login}
+			/>
+			{
+				// console.log("modal", showModal)
+			}
 			<div className={Style.container}>
 				<div className={Style["challenge-container"]}>
 					<div className={Style["challenge-heading"]}>
 						<h3>Featured Challenges</h3>
 						<div>
-							<Link href="/challenges">
-								<button>
-									<span>View All</span>
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="16"
-										height="16"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="1.5"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										class="ai ai-ArrowRight"
-									>
-										<path d="M4 12h16" />
-										<path d="M13 5l7 7-7 7" />
-									</svg>
-								</button>
-							</Link>
+							{/* <Link href="/challenges"> */}
+							<button onClick={handleViewAll}>
+								<span>View All</span>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="16"
+									height="16"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="1.5"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									class="ai ai-ArrowRight"
+								>
+									<path d="M4 12h16" />
+									<path d="M13 5l7 7-7 7" />
+								</svg>
+							</button>
+							{/* </Link> */}
 						</div>
 					</div>
 
@@ -69,7 +86,6 @@ export default function Home() {
 								)}
 							</>
 						))}
-
 					</div>
 				</div>
 				<div className={Style["make-challenges"]}>

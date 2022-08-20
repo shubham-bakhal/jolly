@@ -3,13 +3,10 @@ import Link from "next/link";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
+import { logout } from "../../firebase";
 
-
-const Navbar = () => {
-
-
-		const [user, loading, error] = useAuthState(auth);
-
+const Navbar = ({ setShowModal, setLogin }) => {
+	const [user, loading, error] = useAuthState(auth);
 
 	return (
 		<nav className={Style.container}>
@@ -24,16 +21,32 @@ const Navbar = () => {
 						{/* <button>Sign up</button>
 						<button>Log in</button> */}
 						{/* <button>Create a challenge</button> */}
+						<Link href="/challenges">Challenges</Link>
 						<div className={Style.profile}></div>
+						<button onClick={logout}>Log out</button>
 					</div>
 				) : (
 					<div className={Style["nav-right"]}>
-						<Link href="/login">
-							<button>Log in</button>
-						</Link>
-						<Link href="/signup">
-							<button>Sign up</button>
-						</Link>
+						{/* <Link href="/login"> */}
+						<button
+							onClick={() => {
+								setShowModal(true);
+								setLogin(true);
+							}}
+						>
+							Log in
+						</button>
+						{/* </Link> */}
+						{/* <Link href="/signup"> */}
+						<button
+							onClick={() => {
+								setShowModal(true);
+								setLogin(false);
+							}}
+						>
+							Sign up
+						</button>
+						{/* </Link> */}
 					</div>
 				)}
 				{/* <div className={Style.profile}>Manish</div> */}

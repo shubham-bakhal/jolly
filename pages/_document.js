@@ -5,9 +5,10 @@ class MyDocument extends Document {
 		return (
 			<Html>
 				<Head>
-					
-
-					<link href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,300,400&display=swap" rel="stylesheet" /> 
+					<link
+						href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,300,400&display=swap"
+						rel="stylesheet"
+					/>
 					{/* FAVICONS */}
 					<link
 						rel="apple-touch-icon"
@@ -37,6 +38,7 @@ class MyDocument extends Document {
 				<body>
 					<Main />
 					<NextScript />
+					<div id="modal-root"></div>
 				</body>
 			</Html>
 		);

@@ -62,6 +62,7 @@ const signInWithGoogle = async () => {
 				email: user.email,
 			});
 		}
+		toast.success(`${user.email} Logged in successfully`);
 	} catch (error) {
 		console.log(error);
 		toast.error(error.message);
@@ -71,6 +72,7 @@ const signInWithGoogle = async () => {
 const logInWithEmailAndPassword = async (email, password) => {
 	try {
 		await signInWithEmailAndPassword(auth, email, password);
+		toast.success(`${email} Logged in successfully`);
 	} catch (error) {
 		console.log(error);
 		toast.error(error.message);

@@ -1,20 +1,21 @@
-import Style from "../styles/Auth.module.scss";
 import { useState, useEffect } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
+import Style from "./Login.module.scss";
+// import { Link, useNavigate } from "react-router-dom";
 import Link from "next/link";
-import Router, { useRouter } from "next/router";
-import { auth, registerWithEmailAndPassword } from "../firebase";
+import { Toaster } from "react-hot-toast";
+import { useRouter } from "next/router";
 
-import GoogleLogin from "../components/GoogleLogin/GoogleLogin";
-import toast, { Toaster } from "react-hot-toast";
+import { auth, logInWithEmailAndPassword } from "../../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
-function SignUp() {
+// import auth from "./firebase"
+import GoogleLogin from "../GoogleLogin/GoogleLogin";
+
+function Login({setCloseModal}) {
 	const [passwordShown, setPasswordShown] = useState(false);
 
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [name, setName] = useState("");
-
 	const [user, loading, error] = useAuthState(auth);
 	const router = useRouter();
 
@@ -22,48 +23,38 @@ function SignUp() {
 		setPasswordShown(!passwordShown);
 	};
 
-	const handleSignup = (e) => {
-		e.preventDefault();
-		if (!name) toast.error("Please enter a name");
-		else {
-			registerWithEmailAndPassword(name, email, password);
-		}
-	};
-
 	useEffect(() => {
-		if (loading) return;
-		if (user) router.push("/");
+		if (loading) {
+			console.log("loading....");
+			return;
+		}
+		if (user) setCloseModal(true);
 	}, [user, loading]);
+
+	const handleLogin = (e) => {
+		e.preventDefault();
+		console.log(email);
+		console.log(password);
+		logInWithEmailAndPassword(email, password);
+		setCloseModal(true);
+	};
 
 	return (
 		<div className={Style.container}>
-			{/* <div className={Style.bg}>Photoboard</div> */}
+
 			<div className={Style.formContainer}>
 				<Toaster
 					// position="top-right"
 					reverseOrder={false}
 				/>
-				{/* <Link to="/">
-					<div className={Style.home}>Home</div>
-				</Link> */}
-				<h1>Sign Up</h1>
+				<h1>Log In</h1>
 				<GoogleLogin />
 				<div className={Style.divider}>
 					<span className={Style.line}></span>
 					<span className={Style.text}>or</span>
 					<span className={Style.line}></span>
 				</div>
-				<form onSubmit={handleSignup}>
-					<div className={Style.formField}>
-						<label htmlFor="username">Username</label>
-						<input
-							type="text"
-							placeholder="Username"
-							required
-							onChange={(e) => setName(e.target.value)}
-							value={name}
-						/>
-					</div>
+				<form onSubmit={handleLogin}>
 					<div className={Style.formField}>
 						<label htmlFor="email">Email</label>
 						<input
@@ -71,7 +62,6 @@ function SignUp() {
 							placeholder="Email"
 							required
 							onChange={(e) => setEmail(e.target.value)}
-							value={email}
 						/>
 					</div>
 					<div className={Style.formField}>
@@ -81,7 +71,6 @@ function SignUp() {
 							placeholder="Password"
 							required
 							onChange={(e) => setPassword(e.target.value)}
-							value={password}
 						/>
 					</div>
 					<div className={Style.checkbox}>
@@ -95,20 +84,16 @@ function SignUp() {
 							Show password
 						</label>
 					</div>
-					<button
-						type="submit"
-						onClick={handleSignup}
-						className={Style.submitBtn}
-					>
-						Continue
+					<button type="submit" className={Style.submitBtn}>
+						Log in
 					</button>
 				</form>
-				<div className={Style.linkto}>
-					Already have an account? <Link href="/login">Log in</Link>
-				</div>
+				{/* <div className={Style.linkto}>
+					Need an account? <Link href="/signup">Sign up</Link>
+				</div> */}
 			</div>
 		</div>
 	);
 }
 
-export default SignUp;
+export default Login;

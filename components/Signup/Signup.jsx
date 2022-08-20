@@ -1,23 +1,21 @@
+import Style from "./Signup.module.scss";
 import { useState, useEffect } from "react";
-import Style from "../styles/Auth.module.scss"
-// import { Link, useNavigate } from "react-router-dom";
-import Link from "next/link";
-import { Toaster } from "react-hot-toast";
-
-import { useRouter } from "next/router";
-
-// todo check correct import
-import { auth, logInWithEmailAndPassword } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
+import Link from "next/link";
+import Router, { useRouter } from "next/router";
+import { auth, registerWithEmailAndPassword } from "../../firebase";
 
-// import auth from "./firebase"
-import GoogleLogin from "../components/GoogleLogin/GoogleLogin";
 
-function Login() {
+import GoogleLogin from "../GoogleLogin/GoogleLogin";
+import toast, { Toaster } from "react-hot-toast";
+
+function SignUp() {
 	const [passwordShown, setPasswordShown] = useState(false);
 
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [name, setName] = useState("");
+
 	const [user, loading, error] = useAuthState(auth);
 	const router = useRouter();
 
@@ -25,24 +23,24 @@ function Login() {
 		setPasswordShown(!passwordShown);
 	};
 
-	useEffect(() => {
-		if (loading) {
-			console.log("loading....");
-			return;
-		}
-		if (user) router.push("/");
-	}, [user, loading]);
-
-	const handleLogin = (e) => {
+	const handleSignup = (e) => {
 		e.preventDefault();
-		console.log(email);
-		console.log(password);
-		logInWithEmailAndPassword(email, password);
+		if (!name) toast.error("Please enter a name");
+		else {
+			registerWithEmailAndPassword(name, email, password);
+			
+		}
 	};
+
+	useEffect(() => {
+		if (loading) return;
+		// if (user) router.push("/");
+	}, [user, loading]);
 
 	return (
 		<div className={Style.container}>
-			<div className={Style.logo}>Photoboard</div>
+			{/* <Navbar /> */}
+			{/* <div className={Style.bg}>Photoboard</div> */}
 			<div className={Style.formContainer}>
 				<Toaster
 					// position="top-right"
@@ -51,18 +49,24 @@ function Login() {
 				{/* <Link to="/">
 					<div className={Style.home}>Home</div>
 				</Link> */}
-				{/* <div className={Style.formField}>
-				<label htmlFor="username">Username</label>
-                <input type="text" placeholder="username" />
-			</div> */}
-				<h1>Log In</h1>
+				<h1>Sign Up</h1>
 				<GoogleLogin />
 				<div className={Style.divider}>
 					<span className={Style.line}></span>
 					<span className={Style.text}>or</span>
 					<span className={Style.line}></span>
 				</div>
-				<form onSubmit={handleLogin}>
+				<form onSubmit={handleSignup}>
+					<div className={Style.formField}>
+						<label htmlFor="username">Username</label>
+						<input
+							type="text"
+							placeholder="Username"
+							required
+							onChange={(e) => setName(e.target.value)}
+							value={name}
+						/>
+					</div>
 					<div className={Style.formField}>
 						<label htmlFor="email">Email</label>
 						<input
@@ -70,6 +74,7 @@ function Login() {
 							placeholder="Email"
 							required
 							onChange={(e) => setEmail(e.target.value)}
+							value={email}
 						/>
 					</div>
 					<div className={Style.formField}>
@@ -79,6 +84,7 @@ function Login() {
 							placeholder="Password"
 							required
 							onChange={(e) => setPassword(e.target.value)}
+							value={password}
 						/>
 					</div>
 					<div className={Style.checkbox}>
@@ -92,16 +98,20 @@ function Login() {
 							Show password
 						</label>
 					</div>
-					<button type="submit" className={Style.submitBtn}>
-						Log in
+					<button
+						type="submit"
+						onClick={handleSignup}
+						className={Style.submitBtn}
+					>
+						Continue
 					</button>
 				</form>
-				<div className={Style.linkto}>
-					Need an account? <Link href="/signup">Sign up</Link>
-				</div>
+				{/* <div className={Style.linkto}>
+					Already have an account? <Link href="/login">Log in</Link>
+				</div> */}
 			</div>
 		</div>
 	);
 }
 
-export default Login;
+export default SignUp;
