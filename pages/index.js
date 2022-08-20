@@ -21,9 +21,9 @@ export default function Home() {
 
 	const handleMake = () => {
 		if (!user) {
-			setShowModal(true);
+			router.push(`/make`);
 		} else {
-			router.push(`/challenge/${challenge}/workout`);
+			router.push(`/make`);
 		}
 	};
 
@@ -47,6 +47,7 @@ export default function Home() {
 				// console.log("modal", showModal)
 			}
 			<div className={Style.container}>
+				<div className={Style.intro}></div>
 				<div className={Style["challenge-container"]}>
 					<div className={Style["challenge-heading"]}>
 						<h3>Featured Challenges</h3>
@@ -91,7 +92,7 @@ export default function Home() {
 				<div className={Style["make-challenges"]}>
 					{/* <div></div> */}
 					<div className={Style.make}>
-						<h3>make you own challenge</h3>
+						<h3>Create you own challenge</h3>
 						<button onClick={handleMake}>create</button>
 					</div>
 				</div>

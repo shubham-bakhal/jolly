@@ -6,11 +6,11 @@ function MyApp({ Component, pageProps }) {
 	return (
 		<>
 			<Head>
-				<title>Fitmate</title>
+				<title>Jolly</title>
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<meta
 					name="description"
-					content="Fitmate is a fitness and wellness platform for everyone. Join us and get fit."
+					content="Jolly is a fitness and wellness platform for everyone. Join us and get fit."
 				/>
 			</Head>
 			<Component {...pageProps} />

@@ -25,4 +25,12 @@
     border-radius: 15px;
     padding: 15px;
     margin-top: 5rem;
+    position: relative;
+    a{
+        color: #000;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        z-index: 928137123;
+    }
 }

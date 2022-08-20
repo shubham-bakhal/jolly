@@ -45,7 +45,7 @@ const ChallengeName = () => {
 
 					<div className={Style.challenge}>
 						{user && (
-							<div className="crumb">
+							<div className={Style.crumb}>
 								<Link href="/challenges">
 									<a>Challenges</a>
 								</Link>
@@ -57,13 +57,37 @@ const ChallengeName = () => {
 						<h1>{currentChallenge.title}</h1>
 						<p>{currentChallenge.description}</p>
 						<button onClick={handleClick}>Join Challenge</button>
-						<div className="days">
-							<div className="day">Day 1</div>
-							<div className="day">Day 1</div>
-							<div className="day">Day 1</div>
-							<div className="day">Day 1</div>
-							<div className="day">Day 1</div>
-							<div className="day">Day 1</div>
+						<div className={Style.days}>
+							<div className={Style.day}>Day 1</div>
+							<div className={Style.day}>Day 1</div>
+							<div className={Style.day}>Day 1</div>
+							<div className={Style.day}>Day 1</div>
+							<div className={Style.day}>Day 1</div>
+							<div className={Style.day}>Day 1</div>
+							<div className={Style.day}>Day 1</div>
+							<div className={Style.day}>Day 1</div>
+							<div className={Style.day}>Day 1</div>
+							<div className={Style.day}>Day 1</div>
+							<div className={Style.day}>Day 1</div>
+							<div className={Style.day}>Day 1</div>
+							<div className={Style.day}>Day 1</div>
+							<div className={Style.day}>Day 1</div>
+							<div className={Style.day}>Day 1</div>
+							<div className={Style.day}>Day 1</div>
+							<div className={Style.day}>Day 1</div>
+							<div className={Style.day}>Day 1</div>
+							<div className={Style.day}>Day 1</div>
+							<div className={Style.day}>Day 1</div>
+							<div className={Style.day}>Day 1</div>
+							<div className={Style.day}>Day 1</div>
+							<div className={Style.day}>Day 1</div>
+							<div className={Style.day}>Day 1</div>
+							<div className={Style.day}>Day 1</div>
+							<div className={Style.day}>Day 1</div>
+							<div className={Style.day}>Day 1</div>
+							<div className={Style.day}>Day 1</div>
+							<div className={Style.day}>Day 1</div>
+
 						</div>
 					</div>
 				</div>
