@@ -13,6 +13,7 @@ import {
 	doc,
 	getDoc,
 	getDocs,
+	onSnapshot,
 	query,
 	setDoc,
 	where,
@@ -64,19 +65,32 @@ const ChallengeName = () => {
 	};
 
 	const getUserChallenges = async () => {
-		const userChallenges = await getDocs(
-			collection(db, `users/${user.uid}/challenges`)
-		);
-		const uC = userChallenges.docs.map((d) => d.data());
+		// const userChallenges = await getDocs(
+		// 	collection(db, `users/${user.uid}/challenges`)
+		// );
+
+		onSnapshot(collection(db, `users/${user.uid}/challenges`), (snapshot) => {
+			const data = snapshot.docs.map((doc) => doc.data());
+
+			const joined = data.find((c) => c.id === challenge);
+			setJoined(joined);
+
+			if (joined) {
+				setCurrentChallenge(data[0]);
+			}
+			
+		});
+
+		// const uC = userChallenges.docs.map((d) => d.data());
 		// console.log(uC[0]);
 
 		// check if user has joined this challenge
-		const joined = userChallenges.docs.some((d) => d.data().id === challenge);
+		// const joined = userChallenges.docs.some((d) => d.data().id === challenge);
 
 		setJoined(joined);
-		if(joined){
-			setCurrentChallenge(uC[0]);
-		}
+		// if (joined) {
+		// 	setCurrentChallenge(uC[0]);
+		// }
 	};
 
 	const getChallenge = async () => {
@@ -108,9 +122,7 @@ const ChallengeName = () => {
 						isDone: true,
 					},
 					...currentChallenge.days.slice(index + 1),
-				
-
-				]
+				],
 			});
 			toast.success("Day marked as done!");
 		}
@@ -155,7 +167,7 @@ const ChallengeName = () => {
 							{currentChallenge.days.map((day) => {
 								return (
 									<button
-										className={Style.day}
+										className={day.isDone ? Style.dayDone : Style.day}
 										key={day.day}
 										onClick={() => handleDayClick(day.day)}
 										style={{
