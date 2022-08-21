@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-import { challengeData } from "../../challengeData";
+// import { challengeData } from "../../challengeData";
 import Navbar from "../../components/navbar/Navbar";
 import Style from "../../styles/challenge.module.scss";
 import { useAuthState } from "react-firebase-hooks/auth";

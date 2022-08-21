@@ -2,7 +2,7 @@ import Style from "../styles/Home.module.scss";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 
-import { challengeData } from "../challengeData";
+
 import Navbar from "../components/navbar/Navbar";
 import { useRouter } from "next/router";
 

@@ -1,5 +1,5 @@
 import Style from "../../styles/challenges.module.scss";
-import { challengeData } from "../../challengeData";
+
 import Navbar from "../../components/navbar/Navbar";
 import Link from "next/link";
 import { useEffect, useState } from "react";
