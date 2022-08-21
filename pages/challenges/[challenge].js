@@ -6,8 +6,9 @@ import { challengeData } from "../../challengeData";
 import Navbar from "../../components/navbar/Navbar";
 import Style from "../../styles/challenge.module.scss";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../firebase";
+import { auth, db } from "../../firebase";
 import Modal from "../../components/Modal/Modal";
+import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
 
 const ChallengeName = () => {
 	const router = useRouter();
@@ -20,8 +21,14 @@ const ChallengeName = () => {
 	const [login, setLogin] = useState(false);
 
 	useEffect(() => {
-		const current = challengeData.find((c) => c.id === challenge);
-		setCurrentChallenge(current);
+		// const current = challengeData.find((c) => c.id === challenge);
+		// setCurrentChallenge(current);
+		if (challenge) {
+			getChallenge();
+		}
+
+		// getChallenge();
+		// console.log(challenge);
 	}, [challenge]);
 
 	const handleClick = () => {
@@ -30,6 +37,20 @@ const ChallengeName = () => {
 		} else {
 			setShowModal(true);
 		}
+	};
+
+	const getChallenge = async () => {
+
+
+		getDoc(doc(db, `challenges/${challenge}`))
+			.then((doc) => {
+				setCurrentChallenge(doc.data());
+				// console.log(doc.data());
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+
 	};
 
 	return (
@@ -44,6 +65,7 @@ const ChallengeName = () => {
 					/>
 
 					<div className={Style.challenge}>
+						{/* {console.log(currentChallenge)} */}
 						{user && (
 							<div className={Style.crumb}>
 								<Link href="/challenges">
@@ -58,6 +80,18 @@ const ChallengeName = () => {
 						<p>{currentChallenge.description}</p>
 						<button onClick={handleClick}>Join Challenge</button>
 						<div className={Style.days}>
+							{
+								currentChallenge.days.map((day) => {
+									return (
+										<button className={Style.day} key={day.day} onClick={handleClick}>
+											
+											<p>day {day.day}</p>
+										</button>
+									);
+								}
+								)
+							}
+							{/* <div className={Style.day}>Day 1</div>
 							<div className={Style.day}>Day 1</div>
 							<div className={Style.day}>Day 1</div>
 							<div className={Style.day}>Day 1</div>
@@ -85,9 +119,7 @@ const ChallengeName = () => {
 							<div className={Style.day}>Day 1</div>
 							<div className={Style.day}>Day 1</div>
 							<div className={Style.day}>Day 1</div>
-							<div className={Style.day}>Day 1</div>
-							<div className={Style.day}>Day 1</div>
-
+							<div className={Style.day}>Day 1</div> */}
 						</div>
 					</div>
 				</div>

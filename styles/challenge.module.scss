@@ -24,6 +24,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            border: none;
+            cursor: pointer;
+
+            &:hover{
+                border:2px solid #a6ff00;
+            }
         }
     }
 }

@@ -26,7 +26,7 @@ export const challengeData = [
 	{
 		title: "No sugar",
 		description:
-			"Although our taste buds and our body are highly attuned to the pleasure derived from sugar, today there is sugar in many of our foodstuffs and way too much in our diet. This causes problems with our microbiome, it affects our weight and it impacts on our health. The No Sugar challenge helps you address this balance. Over a month, you help your taste buds reset, you aid in the recovery and resetting of your microbiome flora and discover just how much this small dietary change can affect your weight. You build up a new, healthier you by making small changes, one day at a time. This is a good start.  ",
+			" Over a month, you help your taste buds reset, you aid in the recovery and resetting of your microbiome flora and discover just how much this small dietary change can affect your weight. You build up a new, healthier you by making small changes, one day at a time. This is a good start.  ",
 		userId: "1",
 		id: "4",
 		featured: true,

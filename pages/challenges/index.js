@@ -4,14 +4,28 @@ import Navbar from "../../components/navbar/Navbar";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Modal from "../../components/Modal/Modal";
+import { collection, getDoc, getDocs } from "firebase/firestore";
+import { db } from "../../firebase";
 
 const Challenges = () => {
 	const [showModal, setShowModal] = useState(false);
 
+	const[ challenges, setChallenges ] = useState([]);
+
 
 	useEffect(() => {
 
+
+		getChallenges();
+
 	}, [])
+
+
+	const getChallenges = async () => {
+		const snapshot = await getDocs(collection(db, "challenges"));
+		const data = snapshot.docs.map(doc => doc.data());
+		setChallenges(data);
+	}
 
 	return (
 		<>
@@ -21,13 +35,15 @@ const Challenges = () => {
 			{/* )} */}
 			<div className={Style.container}>
 				<div className={Style["challenges"]}>
-					{challengeData.map((c) => (
-						<div className={Style.challenge}>
+					{challenges.map((c) => (
+						<div className={Style.challenge} key={c.id}>
 							<h3>{c.title}</h3>
-							{/* <p>{challenge.description}</p> */}
+							<p>{c.description}</p>
 							<Link href={`/challenges/${c.id}`}>more info</Link>
 						</div>
 					))}
+
+					
 				</div>
 			</div>
 		</>

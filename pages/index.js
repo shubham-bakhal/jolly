@@ -1,14 +1,15 @@
 import Style from "../styles/Home.module.scss";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { challengeData } from "../challengeData";
 import Navbar from "../components/navbar/Navbar";
 import { useRouter } from "next/router";
 
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
 import Modal from "../components/Modal/Modal";
+import { collection, getDocs, query, where } from "firebase/firestore";
 
 export default function Home() {
 	// const [challenges, setChallenges] = useState(challengesData);
@@ -18,6 +19,8 @@ export default function Home() {
 
 	const [showModal, setShowModal] = useState(false);
 	const [login, setLogin] = useState(false);
+
+	const [challenges, setChallenges] = useState([]);
 
 	const handleMake = () => {
 		if (!user) {
@@ -33,6 +36,25 @@ export default function Home() {
 		} else {
 			router.push(`/challenges`);
 		}
+	};
+
+	useEffect(() => {
+		getFeaturedChallenges();
+	}),
+		[];
+
+	const getFeaturedChallenges = async () => {
+		const q = query(
+			collection(db, "challenges"),
+			where("featured", "==", true)
+		);
+
+		const querySnapShot = await getDocs(q);
+
+		const featuredChallenges = querySnapShot.docs.map((doc) => {
+			return doc.data();
+		});
+		setChallenges(featuredChallenges);
 	};
 
 	return (
@@ -76,7 +98,7 @@ export default function Home() {
 					</div>
 
 					<div className={Style["challenges"]}>
-						{challengeData.map((c) => (
+						{challenges.map((c) => (
 							<>
 								{c.featured && (
 									<div className={Style.challenge}>
@@ -101,7 +123,14 @@ export default function Home() {
 				<div className={Style.about}>
 					<h3 className={Style.logo}>JOLLY</h3>
 					<div className={Style.desc}>
-						Challenge based health and wellness program. Made by <a href="http://www.mnsh.me" target="_blank" rel="noopener noreferrer">Manish</a>
+						Challenge based health and wellness program. Made by{" "}
+						<a
+							href="http://www.mnsh.me"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							Manish
+						</a>
 					</div>
 				</div>
 			</footer>

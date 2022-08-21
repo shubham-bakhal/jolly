@@ -4,7 +4,11 @@ import Modal from "../components/Modal/Modal";
 import { useEffect, useState } from "react";
 
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import toast from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
+import { v4 as uuidv4 } from "uuid";
 
 const Make = () => {
 	const [showModal, setShowModal] = useState(false);
@@ -12,18 +16,72 @@ const Make = () => {
 
 	const [user, loading, error] = useAuthState(auth);
 
+	const [title, setTitle] = useState("");
+	const [description, setDescription] = useState("");
+	const [rules, setRules] = useState("");
+	const [days, setDays] = useState(30);
+
 	useEffect(() => {
-    if (user) return
-    if (loading) return
+		if (user) return;
+		if (loading) return;
 		if (!user) {
 			setShowModal(true);
 		}
 	}, []);
 
-	const handleSubmit = () => {};
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		if (user) {
+			console.log(title, description, rules, days);
+
+			//add to database collection name is challenges
+
+      let daysArray = [];
+      for (let i = 1; i < days + 1; i++) {
+        daysArray.push({
+          day: i,
+          exercises: [],
+          isDone: false,
+
+        });
+      }
+
+      console.log(daysArray);
+
+
+      let id = uuidv4();
+			setDoc(doc(db, `challenges`, id), {
+				title,
+				description,
+				rules,
+				duration: days,
+				createdBy: user.uid,
+				featured: false,
+        createdAt: new Date(),
+        id: id,
+        days: daysArray,
+			})
+				.then(() => {
+					setTitle("");
+					setDescription("");
+					setRules("");
+					setDays(30);
+					toast.success("Challenge created!");
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		} else {
+			setShowModal(true);
+		}
+	};
 
 	return (
 		<div className={Style.App}>
+			<Toaster
+				// position="top-right"
+				reverseOrder={false}
+			/>
 			<Navbar setShowModal={setShowModal} setLogin={setLogin} />
 			<Modal
 				onClose={() => setShowModal(false)}
@@ -39,7 +97,9 @@ const Make = () => {
 								<input
 									placeholder="Title"
 									required
-									// onChange={(e) => setEmail(e.target.value)}
+									type="text"
+									value={title}
+									onChange={(e) => setTitle(e.target.value)}
 								/>
 							</div>
 							<div className={Style.formField}>
@@ -47,15 +107,18 @@ const Make = () => {
 								<textarea
 									placeholder="description"
 									required
-									// onChange={(e) => setEmail(e.target.value)}
+									value={description}
+									onChange={(e) => setDescription(e.target.value)}
 								/>
 							</div>
 							<div className={Style.formField}>
 								<label>Rules</label>
 								<textarea
 									placeholder="Rules"
-									required
-									// onChange={(e) => setEmail(e.target.value)}
+									// required
+									value={rules}
+									type="text"
+									onChange={(e) => setRules(e.target.value)}
 								/>
 							</div>
 							<div className={Style.formField}>
@@ -64,8 +127,9 @@ const Make = () => {
 									type={"number"}
 									placeholder="description"
 									required
-                  defaultValue={30}
-									// onChange={(e) => setEmail(e.target.value)}
+									// defaultValue={30}
+									value={days}
+									onChange={(e) => setDays(e.target.value)}
 								/>
 							</div>
 

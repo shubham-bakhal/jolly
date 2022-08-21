@@ -43,10 +43,7 @@ function Login({setCloseModal}) {
 		<div className={Style.container}>
 
 			<div className={Style.formContainer}>
-				<Toaster
-					// position="top-right"
-					reverseOrder={false}
-				/>
+				
 				<h1>Log In</h1>
 				<GoogleLogin />
 				<div className={Style.divider}>
