@@ -8,6 +8,16 @@
     max-width: 900px;
     margin: auto;
 
+    button{
+        border: none;
+        border-radius: 20px;
+        padding: .4rem 1rem;
+        cursor: pointer;
+
+        &:hover{
+            background-color: #b3b3b3;
+        }
+    }
 
     .days{
         display: flex;

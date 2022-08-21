@@ -8,7 +8,16 @@ import Style from "../../styles/challenge.module.scss";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../../firebase";
 import Modal from "../../components/Modal/Modal";
-import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
+import {
+	collection,
+	doc,
+	getDoc,
+	getDocs,
+	query,
+	setDoc,
+	where,
+} from "firebase/firestore";
+import toast, { Toaster } from "react-hot-toast";
 
 const ChallengeName = () => {
 	const router = useRouter();
@@ -16,6 +25,8 @@ const ChallengeName = () => {
 
 	const [currentChallenge, setCurrentChallenge] = useState(null);
 	const [user, loading, error] = useAuthState(auth);
+
+	const [joined, setJoined] = useState(false);
 
 	const [showModal, setShowModal] = useState(false);
 	const [login, setLogin] = useState(false);
@@ -31,32 +42,86 @@ const ChallengeName = () => {
 		// console.log(challenge);
 	}, [challenge]);
 
+	useEffect(() => {
+		if (user) {
+			getUserChallenges();
+		}
+	}, [user]);
+
 	const handleClick = () => {
 		if (user) {
-			router.push(`/challenge/${challenge}/workout`);
+			//add current challenge to user's challenges
+			setDoc(
+				doc(db, `users/${user.uid}/challenges`, currentChallenge.id),
+				currentChallenge
+			);
+
+			toast.success("Challenge added to your account!");
+			setJoined(true);
 		} else {
 			setShowModal(true);
 		}
 	};
 
+	const getUserChallenges = async () => {
+		const userChallenges = await getDocs(
+			collection(db, `users/${user.uid}/challenges`)
+		);
+		const uC = userChallenges.docs.map((d) => d.data());
+		// console.log(uC[0]);
+
+		// check if user has joined this challenge
+		const joined = userChallenges.docs.some((d) => d.data().id === challenge);
+
+		setJoined(joined);
+		if(joined){
+			setCurrentChallenge(uC[0]);
+		}
+	};
+
 	const getChallenge = async () => {
+		if (!joined) {
+			getDoc(doc(db, `challenges/${challenge}`))
+				.then((doc) => {
+					setCurrentChallenge(doc.data());
+					// console.log(doc.data());
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		}
+	};
 
+	const handleDayClick = (day) => {
+		if (!joined) {
+			toast.error("Please join the challenge first!");
+		} else {
+			console.log(currentChallenge);
+			const index = day === 0 ? 0 : day - 1;
+			// update the user's challenge progress
+			setDoc(doc(db, `users/${user.uid}/challenges/${challenge}`), {
+				...currentChallenge,
+				days: [
+					...currentChallenge.days.slice(0, index),
+					{
+						...currentChallenge.days[index],
+						isDone: true,
+					},
+					...currentChallenge.days.slice(index + 1),
+				
 
-		getDoc(doc(db, `challenges/${challenge}`))
-			.then((doc) => {
-				setCurrentChallenge(doc.data());
-				// console.log(doc.data());
-			})
-			.catch((error) => {
-				console.log(error);
+				]
 			});
-
+			toast.success("Day marked as done!");
+		}
 	};
 
 	return (
 		<>
+			<Toaster />
 			{currentChallenge && (
 				<div className={Style.container}>
+					{console.log(currentChallenge.days)}
 					<Navbar setShowModal={setShowModal} setLogin={setLogin} />
 					<Modal
 						onClose={() => setShowModal(false)}
@@ -78,48 +143,29 @@ const ChallengeName = () => {
 
 						<h1>{currentChallenge.title}</h1>
 						<p>{currentChallenge.description}</p>
-						<button onClick={handleClick}>Join Challenge</button>
+						<button
+							onClick={handleClick}
+							style={{
+								backgroundColor: joined ? "#a6ff00" : "#ffffff",
+							}}
+						>
+							{joined ? "Joined Challenge" : "Join Challenge"}
+						</button>
 						<div className={Style.days}>
-							{
-								currentChallenge.days.map((day) => {
-									return (
-										<button className={Style.day} key={day.day} onClick={handleClick}>
-											
-											<p>day {day.day}</p>
-										</button>
-									);
-								}
-								)
-							}
-							{/* <div className={Style.day}>Day 1</div>
-							<div className={Style.day}>Day 1</div>
-							<div className={Style.day}>Day 1</div>
-							<div className={Style.day}>Day 1</div>
-							<div className={Style.day}>Day 1</div>
-							<div className={Style.day}>Day 1</div>
-							<div className={Style.day}>Day 1</div>
-							<div className={Style.day}>Day 1</div>
-							<div className={Style.day}>Day 1</div>
-							<div className={Style.day}>Day 1</div>
-							<div className={Style.day}>Day 1</div>
-							<div className={Style.day}>Day 1</div>
-							<div className={Style.day}>Day 1</div>
-							<div className={Style.day}>Day 1</div>
-							<div className={Style.day}>Day 1</div>
-							<div className={Style.day}>Day 1</div>
-							<div className={Style.day}>Day 1</div>
-							<div className={Style.day}>Day 1</div>
-							<div className={Style.day}>Day 1</div>
-							<div className={Style.day}>Day 1</div>
-							<div className={Style.day}>Day 1</div>
-							<div className={Style.day}>Day 1</div>
-							<div className={Style.day}>Day 1</div>
-							<div className={Style.day}>Day 1</div>
-							<div className={Style.day}>Day 1</div>
-							<div className={Style.day}>Day 1</div>
-							<div className={Style.day}>Day 1</div>
-							<div className={Style.day}>Day 1</div>
-							<div className={Style.day}>Day 1</div> */}
+							{currentChallenge.days.map((day) => {
+								return (
+									<button
+										className={Style.day}
+										key={day.day}
+										onClick={() => handleDayClick(day.day)}
+										style={{
+											backgroundColor: day.isDone ? "#a6ff00" : "#ffffff",
+										}}
+									>
+										<p>day {day.day}</p>
+									</button>
+								);
+							})}
 						</div>
 					</div>
 				</div>
