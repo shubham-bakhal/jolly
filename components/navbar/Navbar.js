@@ -32,6 +32,7 @@ const Navbar = ({ setShowModal, setLogin }) => {
 
 	return (
 		<nav className={Style.container}>
+			{/* {console.log(user)} */}
 			<div className={Style.navContent}>
 				<div className={Style.logo}>
 					<Link href="/">
@@ -49,7 +50,7 @@ const Navbar = ({ setShowModal, setLogin }) => {
 							<div ref={dropDownRef}>
 								<img
 									className={Style.profile}
-									src={`https://source.boringavatars.com/beam/120/${user?.name}?colors=31f2cc,1a2b3b,F23157`}
+									src={`https://source.boringavatars.com/beam/120/${user?.displayName}?colors=31f2cc,1a2b3b,F23157`}
 									alt="User avatar"
 									onClick={() => setDropdownActive(!dropdownActive)}
 								></img>
@@ -66,7 +67,7 @@ const Navbar = ({ setShowModal, setLogin }) => {
 								>
 									<div className={Style["dropdown-profile-details"]}>
 										<span className={Style["dropdown-profile-details--name"]}>
-											{user?.name}
+											{user?.displayName}
 										</span>
 										<span className={Style["dropdown-profile-details--email"]}>
 											{user?.email}

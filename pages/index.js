@@ -97,6 +97,14 @@ export default function Home() {
 					</div>
 				</div>
 			</div>
+			<footer>
+				<div className={Style.about}>
+					<h3 className={Style.logo}>JOLLY</h3>
+					<div className={Style.desc}>
+						Challenge based health and wellness program. Made by <a href="http://www.mnsh.me" target="_blank" rel="noopener noreferrer">Manish</a>
+					</div>
+				</div>
+			</footer>
 		</div>
 	);
 }

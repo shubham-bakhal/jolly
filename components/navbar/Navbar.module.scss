@@ -1,45 +1,59 @@
 .container {
-        background-color: rgb(255, 255, 255);
-        padding: .5rem;
-        position: fixed;
-        top: 0;
-        width: 100%;
+    background-color: rgb(255, 255, 255);
+    padding: 0.5rem;
+    position: fixed;
+    top: 0;
+    width: 100%;
 
-        h1{
-            text-transform: uppercase;
-            cursor: pointer;
-        }
+    h1 {
+        text-transform: uppercase;
+        cursor: pointer;
+    }
 
-        .navContent {
-            align-items: center;
-            max-width: 900px;
+    .navContent {
+        align-items: center;
+        max-width: 900px;
+        display: flex;
+        margin: auto;
+        justify-content: space-between;
+        // flex-direction: c;
+        // background-color: antiquewhite;
+
+        .nav-right {
             display: flex;
-            margin: auto;
-            justify-content: space-between;
-            // flex-direction: c;
-            // background-color: antiquewhite;
-            
-            .nav-right{
+            align-items: center;
+            gap: 1rem;
+            position: relative;
+
+            button{
+                border-radius: 100px;
+                // background-color: #a6ff00;
+                border: none;
+                padding: .5rem 1rem;
                 display: flex;
                 align-items: center;
-                gap: 1rem;
-                position: relative;
+                justify-content: center;
+                gap: 5px;
+                cursor: pointer;
 
-                a{
-                    color: #000;
-                    text-decoration: none;
+                &:hover {
+                    background-color: #a6ff00;
                 }
-                .profile{
-                    width: 50px;
-                    height: 50px;
-                    background-color: #eee;
-                    border-radius: 100%;
-                }
+            }
+
+            a {
+                color: #000;
+                text-decoration: none;
+            }
+            .profile {
+                width: 50px;
+                height: 50px;
+                background-color: #eee;
+                border-radius: 100%;
             }
         }
     }
-
-
+}
 
 .dropdownWrapper {
     // font-size: 2rem;
@@ -66,7 +80,7 @@
     // border: 1px solid #d1d1d1;
     // top: -2rem;
 
-    @media screen and (max-width:1100px) {
+    @media screen and (max-width: 1100px) {
         right: 1rem;
     }
 
@@ -111,7 +125,7 @@
     display: flex;
     flex-direction: column;
     padding-bottom: 0.5rem;
-    border-bottom: 1px solid #eaeaea;
+    // border-bottom: 1px solid #eaeaea;
 }
 
 .dropdown-profile-details--name {
