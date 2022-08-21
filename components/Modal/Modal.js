@@ -72,10 +72,10 @@ function Modal({ show, onClose, children, title, login }) {
 									viewBox="0 0 24 24"
 									fill="none"
 									stroke="currentColor"
-									stroke-width="1.5"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									class="ai ai-Cross"
+									strokeWidth="1.5"
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									// class="ai ai-Cross"
 								>
 									<path d="M20 20L4 4m16 0L4 20" />
 								</svg>

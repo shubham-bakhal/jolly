@@ -69,7 +69,9 @@ export default function Home() {
 				// console.log("modal", showModal)
 			}
 			<div className={Style.container}>
-				<div className={Style.intro}></div>
+				<div className={Style.intro}>
+					<h1>Challenge based health and wellness program</h1>
+				</div>
 				<div className={Style["challenge-container"]}>
 					<div className={Style["challenge-heading"]}>
 						<h3>Featured Challenges</h3>
@@ -84,10 +86,10 @@ export default function Home() {
 									viewBox="0 0 24 24"
 									fill="none"
 									stroke="currentColor"
-									stroke-width="1.5"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									class="ai ai-ArrowRight"
+									strokeWidth="1.5"
+									strokeLinecap="round"
+									strokeLinejoin="round"
+									// class="ai ai-ArrowRight"
 								>
 									<path d="M4 12h16" />
 									<path d="M13 5l7 7-7 7" />
@@ -101,10 +103,31 @@ export default function Home() {
 						{challenges.map((c) => (
 							<>
 								{c.featured && (
-									<div className={Style.challenge}>
-										<h3>{c.title}</h3>
-										{/* <p>{challenge.description}</p> */}
-										<Link href={`/challenges/${c.id}`}>more info</Link>
+									<div className={Style.challenge} key={c.id}>
+										<h2>{c.title}</h2>
+										<p>{c.description}</p>
+										<Link href={`/challenges/${c.id}`}>
+											<button>
+												<svg
+													xmlns="http://www.w3.org/2000/svg"
+													width="20"
+													height="20"
+													viewBox="0 0 24 24"
+													fill="none"
+													stroke="currentColor"
+													strokeWidth="2"
+													strokeLinecap="round"
+													strokeLinejoin="round"
+													// class="ai ai-Info"
+												>
+													<circle cx="12" cy="12" r="10" />
+													<path d="M12 7h.01" />
+													<path d="M10 11h2v5" />
+													<path d="M10 16h4" />
+												</svg>
+												<span>more info</span>
+											</button>
+										</Link>
 									</div>
 								)}
 							</>

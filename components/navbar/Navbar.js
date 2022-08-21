@@ -99,6 +99,9 @@ const Navbar = ({ setShowModal, setLogin }) => {
 								setShowModal(true);
 								setLogin(false);
 							}}
+							style={{
+								backgroundColor: "#a6ff00",
+							}}
 						>
 							Sign up
 						</button>

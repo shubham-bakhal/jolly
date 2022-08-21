@@ -148,7 +148,7 @@ const ChallengeName = () => {
 								<Link href="/challenges">
 									<a>Challenges</a>
 								</Link>
-								<span>/</span>
+								<span> / </span>
 								<span>{currentChallenge.title}</span>
 							</div>
 						)}
@@ -174,7 +174,7 @@ const ChallengeName = () => {
 											backgroundColor: day.isDone ? "#a6ff00" : "#ffffff",
 										}}
 									>
-										<p>day {day.day}</p>
+										<p>Day {day.day}</p>
 									</button>
 								);
 							})}
