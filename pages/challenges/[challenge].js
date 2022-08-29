@@ -59,6 +59,7 @@ const ChallengeName = () => {
 
 			toast.success("Challenge added to your account!");
 			setJoined(true);
+			// getUserChallenges()
 		} else {
 			setShowModal(true);
 		}
@@ -76,8 +77,10 @@ const ChallengeName = () => {
 			setJoined(joined);
 
 			if (joined) {
-				setCurrentChallenge(data[0]);
+				setCurrentChallenge(joined);
 			}
+
+			// console.log(joined)
 			
 		});
 
@@ -133,7 +136,6 @@ const ChallengeName = () => {
 			<Toaster />
 			{currentChallenge && (
 				<div className={Style.container}>
-					{console.log(currentChallenge.days)}
 					<Navbar setShowModal={setShowModal} setLogin={setLogin} />
 					<Modal
 						onClose={() => setShowModal(false)}

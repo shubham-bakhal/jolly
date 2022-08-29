@@ -1,9 +1,12 @@
 .container {
     background-color: rgb(255, 255, 255);
-    padding: 0.5rem;
+    padding: 0.5rem 1rem;
     position: fixed;
     top: 0;
     width: 100%;
+    // @media screen and (max-width: 768px) {
+    //     padding: 0.5rem 1rem;
+    // }
 
     h1 {
         text-transform: uppercase;
@@ -25,11 +28,11 @@
             gap: 1rem;
             position: relative;
 
-            button{
+            button {
                 border-radius: 100px;
                 // background-color: #a6ff00;
                 border: none;
-                padding: .5rem 1rem;
+                padding: 0.5rem 1rem;
                 display: flex;
                 align-items: center;
                 justify-content: center;

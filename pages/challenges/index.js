@@ -58,7 +58,7 @@ const Challenges = () => {
 										<path d="M10 11h2v5" />
 										<path d="M10 16h4" />
 									</svg>
-									<span>more info</span>
+									<span>Learn more</span>
 								</button>
 							</Link>
 						</div>
