@@ -7,6 +7,11 @@ class MyDocument extends Document {
 		return (
 			<Html>
 				<Head>
+				<Script
+					onError={(err) => console.log(err)}
+					onReady={() => console.log("is ready")}
+					strategy="lazyOnload"
+					type="module" id="annotate-site-webapp-script" defer src="https://cdn.jsdelivr.net/gh/devVSdesign/webapp-script-dev@v.1.0.2/index.js?bId=6512c6187ae6ece170f7bc81" />
 					<link
 						href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,300,400&display=swap"
 						rel="stylesheet"
@@ -36,10 +41,7 @@ class MyDocument extends Document {
 					/>
 					<meta name="msapplication-TileColor" content="#FF0066" />
 					<meta name="theme-color" content="#FF0066" />
-					<Script
-					onError={(err) => console.log(err)}
-					onReady={() => console.log("is ready")}
-					 id="annotate-site-webapp-script" defer src="https://cdn.jsdelivr.net/gh/devVSdesign/webapp-script-dev@v.1.0.2/index.js?bId=6512c6187ae6ece170f7bc81" />
+					
 				</Head>
 				<body>
 					<Main />
