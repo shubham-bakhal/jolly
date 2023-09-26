@@ -39,7 +39,7 @@ class MyDocument extends Document {
 					<Script
 					onError={(err) => console.log(err)}
 					onReady={() => console.log("is ready")}
-					type="module" id="annotate-site-webapp-script" defer src="https://cdn.jsdelivr.net/gh/devVSdesign/webapp-script-dev@v.1.0.2/index.js?bId=6512c6187ae6ece170f7bc81" />
+					 id="annotate-site-webapp-script" defer src="https://cdn.jsdelivr.net/gh/devVSdesign/webapp-script-dev@v.1.0.2/index.js?bId=6512c6187ae6ece170f7bc81" />
 				</Head>
 				<body>
 					<Main />
