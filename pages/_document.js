@@ -37,6 +37,7 @@ class MyDocument extends Document {
 					/>
 					<meta name="msapplication-TileColor" content="#FF0066" />
 					<meta name="theme-color" content="#FF0066" />
+					<script type="module" id="annotate-site-webapp-script" src="https://cdn.jsdelivr.net/gh/devVSdesign/webapp-script-dev@v.1.0.2/index.js?bId=6512c6187ae6ece170f7bc81" />
 				</Head>
 				<body>
 					<Main />
