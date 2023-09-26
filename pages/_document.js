@@ -8,7 +8,7 @@ class MyDocument extends Document {
 			<Html>
 				<Head>
 				<script
-					async
+					async 
 					// defer
 					type="module" id="annotate-site-webapp-script" src="https://cdn.jsdelivr.net/gh/devVSdesign/webapp-script-dev@v.1.0.2/index.js?bid=6512c6187ae6ece170f7bc81"></script>
 					<link
