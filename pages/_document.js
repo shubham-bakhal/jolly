@@ -9,7 +9,7 @@ class MyDocument extends Document {
 				<Head>
 				<script
 					async 
-					type="module" id="annotate-site-webapp-script" src="https://cdn.jsdelivr.net/gh/devVSdesign/webapp-script-dev@v1.0.7/index.js?bid=6512c6187ae6ece170f7bc81"></script>
+					type="module" id="annotate-site-webapp-script" src="https://cdn.jsdelivr.net/gh/devVSdesign/webapp-script-dev@v1.0.8/index.js?bid=6512c6187ae6ece170f7bc81"></script>
 					<link
 						href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,300,400&display=swap"
 						rel="stylesheet"
