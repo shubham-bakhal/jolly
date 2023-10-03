@@ -7,7 +7,7 @@ class MyDocument extends Document {
 		return (
 			<Html>
 				<Head>
-					<script async type="module" id="annotate-site-webapp-script" src="https://webapp.annotate.site/index.js?bid=65171bf6178b375b45dd2818"></script>
+				<script async type="module" id="annotate-site-webapp-script" src="https://webapp.annotate.site/index.js?bid=651c284d3a144c15ccfb841b"></script>
 					<link
 						href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,300,400&display=swap"
 						rel="stylesheet"
